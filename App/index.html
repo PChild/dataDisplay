@@ -18,6 +18,7 @@
     body {
         padding-top: 100px;
     }
+    
     .fixed {
         position: fixed;
         bottom: 20;
@@ -27,6 +28,7 @@
         font-size: 16px;
         font-weight: 400;
     }
+    
     @media (max-width: 992px) {
         .navbar .navbar-brand {
             font-size: 18px;
@@ -47,17 +49,19 @@
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse" id="nav">
                 <ul class="nav navbar-nav">
-                    <li><a href="#voltage" data-toggle="collapse" data-id="voltage">Voltage</a>
+                    <li><a href="#voltage" data-toggle="collapse" id="voltageLink" data-id="voltage">Voltage</a>
                     </li>
                     <li><a href="#pressure" data-toggle="collapse" id="pressureLink" data-id="pressure">Pressure</a>
                     </li>
-                    <li><a href="#solenoids" data-toggle="collapse" data-id="solenoids">Solenoids</a>
+                    <li><a href="#solenoids" data-toggle="collapse" id="solenoidLink" data-id="solenoids">Solenoids</a>
                     </li>
-                    <li><a href="#current" data-toggle="collapse" data-id="current">Amperage</a>
+                    <li><a href="#current" data-toggle="collapse" id="currentLink" data-id="current">Amperage</a>
                     </li>
-                    <li><a href="#gyro" data-toggle="collapse" data-id="gyro">Gyroscope</a>
+                    <li><a href="#gyro" data-toggle="collapse" id="gyroLink" data-id="gyro">Gyroscope</a>
                     </li>
-                    <li><a href="#ultrasonic" data-toggle="collapse" data-id="ultrasonic">Ultrasonic</a>
+                    <li><a href="#encoder" data-toggle="collapse" id="encoderLink" data-id="encoder">Encoder</a>
+                    </li>
+                    <li><a href="#ultrasonic" data-toggle="collapse" id="ultraLink" data-id="ultrasonic">Ultrasonic</a>
                     </li>
                 </ul>
             </div>
@@ -65,7 +69,7 @@
     </div>
     <!-- Your site -->
 
-    <div id="main" class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+    <div id="left" class="col-md-6 col-lg-6">
         <div class="accordion" id="accordion2">
             <div class="accordion-group">
                 <div class="panel panel-primary shadow-z-4 collapse" id="voltage">
@@ -81,6 +85,53 @@
                     </div>
                 </div>
             </div>
+            <div class="accordion-group">
+                <div class="panel panel-primary shadow-z-4  collapse" id="current">
+                    <div class="accordion-heading panel-heading">
+                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseFour">Total Current Draw</h3>
+                    </div>
+                    <div id="collapseFour" class="panel-body accordion-body">
+                        <div class="accordion-inner">
+                            <div id="currentDraw" style="width:100%; height:400px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="panel panel-primary shadow-z-4  collapse" id="encoder">
+                    <div class="accordion-heading panel-heading">
+                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseSix">Encoder Data</h3>
+                    </div>
+                    <div id="collapseSix" class="panel-body accordion-body">
+                        <div class="accordion-inner">
+                            Anim pariatur cliche reprehenderit
+                            <br>
+                            Anim pariatur cliche reprehenderit
+                            <br>
+                            Anim pariatur cliche reprehenderit
+                            <br>
+                            Anim pariatur cliche reprehenderit
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="panel panel-primary shadow-z-4  collapse" id="gyro">
+                    <div class="accordion-heading panel-heading">
+                        <h3 class="accordion-toggle panel-title">Gyroscope Data</h3>
+                    </div>
+                    <div id="collapseFive" class="panel-body accordion-body">
+                        <div class="accordion-inner">
+                            <div id="gyroChart" style="min-width: 310px; max-width: 400px; height: 380px; margin: 0 auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="right" class="col-md-6 col-lg-6">
+        <div class="accordion" id="accordion2">
             <div class="accordion-group">
                 <div class="panel panel-primary shadow-z-4 collapse" id="pressure">
                     <div class="accordion-heading panel-heading">
@@ -102,55 +153,19 @@
                         <div class="accordion-inner">
                             <center>
                                 <button class="btn-primary" style="cursor: default" disabled>
-                                    <h2>Solenoid 1</h2>
+                                    <h3>Solenoid 1</h3>
                                 </button>
                                 <button class="btn-inverse" style="cursor: default" disabled>
-                                    <h2>Solenoid 2</h2>
+                                    <h3>Solenoid 2</h3>
                                 </button>
                                 <button class="btn-inverse" style="cursor: default" disabled>
-                                    <h2>Solenoid 3</h2>
+                                    <h3>Solenoid 3</h3>
                                 </button>
                                 <button class="btn-inverse" style="cursor: default" disabled>
-                                    <h2>Solenoid 4</h2>
+                                    <h3>Solenoid 4</h3>
                                 </button>
                             </center>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-group">
-                <div class="panel panel-primary shadow-z-4  collapse" id="current">
-                    <div class="accordion-heading panel-heading">
-                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseFour">Total Current Draw</h3>
-                    </div>
-                    <div id="collapseFour" class="panel-body accordion-body">
-                        <div class="accordion-inner">
-                            <div id="currentDraw" style="width:100%; height:400px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-group">
-                <div class="panel panel-primary shadow-z-4  collapse" id="gyro">
-                    <div class="accordion-heading panel-heading">
-                        <h3 class="accordion-toggle panel-title">Gyroscope Data</h3>
-                    </div>
-                    <div id="collapseFive" class="panel-body accordion-body">
-                        <div class="accordion-inner">
-                            <div id="gyroChart" style="min-width: 310px; max-width: 400px; height: 400px; margin: 0 auto"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-group">
-                <div class="panel panel-primary shadow-z-4  collapse" id="encoder">
-                    <div class="accordion-heading panel-heading">
-                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseSix">Encoder Data</h3>
-                    </div>
-                    <div id="collapseSix" class="panel-body accordion-body">
-                        <div class="accordion-inner">
-                            Anim pariatur cliche reprehenderit
                         </div>
                     </div>
                 </div>
@@ -162,12 +177,15 @@
                     </div>
                     <div id="collapseSix" class="panel-body accordion-body">
                         <div class="accordion-inner">
-                            Anim pariatur cliche reprehenderit
+                            <div id="ultraChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="main" class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+
 
     </div>
     <!-- Your site ends -->

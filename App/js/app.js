@@ -1,6 +1,42 @@
 $(function () {
 
     $(document).ready(function () {
+
+        $('#voltageLink').click(function () {
+            var gValue = $(this).attr('class');
+            if (gValue == 'btn-inverse') {
+                $(this).removeClass("btn-inverse");
+                $(this).addClass("btn-primary");
+            } else {
+                $(this).removeClass("btn-primary");
+                $(this).addClass("btn-inverse");
+            }
+        });
+
+        $('#pressureLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
+        $('#currentLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
+        $('#gyroLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
+        $('#encoderLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
+        $('#ultraLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
+        $('#solenoidLink').click(function () {
+            $(this).toggleClass("btn-inverse");
+        });
+
         Highcharts.setOptions({
             global: {
                 useUTC: false
@@ -167,7 +203,15 @@ $(function () {
                     // set up the updating of the chart each second
                     updateAngle();
                 }
-            }
+            },
+            spacingBottom: 1,
+            spacingTop: 1,
+            spacingLeft: 1,
+            spacingRight: 1,
+            marginBottom: 1,
+            marginTop: 20,
+            marginLeft: 1,
+            marginRight: 1,
         },
         title: {
             text: 'Gyroscope Heading'
@@ -231,6 +275,80 @@ $(function () {
 
     });
 
+    $('#ultraChart').highcharts({
+        chart: {
+            type: 'areaspline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
+                    updateUltra();
+                }
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Ultrasonic Data'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150
+        },
+        yAxis: {
+            title: {
+                text: 'Distance (cm)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+                }]
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: 'Distance (cm)',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+
+                for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: Math.random() * 160
+                    });
+                }
+                return data;
+            }())
+            }]
+    });
+
+    function updateUltra() {
+        var chart = $('#ultraChart').highcharts();
+        var series = chart.series[0];
+        setInterval(function () {
+            var x = (new Date()).getTime(), // current time
+                y = Math.random() * 160;
+            series.addPoint([x, y], true, true);
+        }, 1000);
+
+    };
+
     function updateAngle() {
         var chart = $('#gyroChart').highcharts();
         var series = chart.get('heading');
@@ -264,9 +382,9 @@ $(function () {
                 });
                 $('#label-1').remove();
                 chart.renderer.label(
-                    'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
-                    100,
-                    20)
+                        'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
+                        100,
+                        20)
                     .attr({
                         id: 'label-1',
                         zIndex: 8
