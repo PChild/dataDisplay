@@ -14,14 +14,7 @@ $(function () {
                 marginRight: 10,
                 events: {
                     load: function () {
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        setInterval(function () {
-                            var x = (new Date()).getTime(), // current time
-                                y = Math.random() * 120;
-                            series.addPoint([x, y], true, true);
-                            drawMax();
-                        }, 1000);
+                        updateCurrent();
                     }
                 }
             },
@@ -43,7 +36,7 @@ $(function () {
                     value: 0,
                     width: 1,
                     color: '#808080'
-    }]
+}]
             },
             tooltip: {
                 formatter: function () {
@@ -74,40 +67,18 @@ $(function () {
                 }())
 }]
         });
-
-        var yMax = 0;
-
-        function drawMax() {
-            var chart = $('#currentDraw').highcharts()
-            extremes = chart.yAxis[0].getExtremes();
-            if (extremes.dataMax > yMax) {
-                chart.yAxis[0].removePlotLine('plot-line-1');
-                yMax = extremes.dataMax;
-                chart.yAxis[0].addPlotLine({
-                    value: yMax,
-                    dashStyle: 'shortdash',
-                    color: 'red',
-                    width: 2,
-                    id: 'plot-line-1'
-                });
-                $('#label-1').remove();
-                chart.renderer.label(
-                    'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
-                    100,
-                    20)
-                    .attr({
-                        id: 'label-1',
-                        zIndex: 8
-                    })
-                    .add();
-            }
-        };
     });
 
     var gaugeOptions = {
 
         chart: {
-            type: 'solidgauge'
+            type: 'solidgauge',
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    updatePressure();
+                }
+            }
         },
 
         title: null,
@@ -132,9 +103,9 @@ $(function () {
         // the value axis
         yAxis: {
             stops: [
-    [0.1, '#DF5353'], // green
-    [0.5, '#DDDF0D'], // yellow
-    [0.9, '#55BF3B'] // red
+[0.1, '#DF5353'], // green
+ [0.5, '#DDDF0D'], // yellow
+ [0.9, '#55BF3B'] // red
 ],
             lineWidth: 0,
             minorTickInterval: 10,
@@ -188,26 +159,148 @@ $(function () {
 
     }));
 
+    $('#gyroChart').highcharts({
+        chart: {
+            type: 'gauge',
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    updateAngle();
+                }
+            }
+        },
+        title: {
+            text: 'Gyroscope Heading'
+        },
+        credits: {
+            enabled: false
+        },
+        yAxis: {
+            title: {
+                text: 'Angle in °'
+            },
+            min: 0,
+            max: 360,
+            showLastLabel: true,
+            tickInterval: 45,
+            labels: {
+                formatter: function () {
+                    var direction,
+                        directions = {
+                            0: '0',
+                            45: '45',
+                            90: '90',
+                            135: '135',
+                            180: '180',
+                            225: '225',
+                            270: '270',
+                            315: '315'
+                        };
+                    direction = directions[this.value] || '';
+                    return '<b>' + direction + '</b>'
+                }
+            }
+        },
+        tooltip: {
+            enabled: false
+        },
+        series: [{
+            name: 'Angle',
+            animation: true,
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    return Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            data: [{
+                id: 'heading',
+                y: 0,
+                dial: {
+                    radius: '90%',
+                    backgroundColor: '#f66',
+                    borderColor: '#faa',
+                    baseWidth: 5,
+                    baseLength: '90%'
+                }
+ }],
+            tooltip: {
+                valueSuffix: '°'
+            }
+ }]
 
-    // Bring life to the dials
-    setInterval(function () {
-        $(window).resize();
-        // Speed
-        var chart = $('#pressureChart').highcharts(),
-            point,
-            newVal,
-            inc;
+    });
 
-        if (chart) {
-            point = chart.series[0].points[0];
-            inc = Math.round((Math.random() - 0.5) * 100);
-            newVal = point.y + inc;
+    function updateAngle() {
+        var chart = $('#gyroChart').highcharts();
+        var series = chart.get('heading');
+        setInterval(function () {
+            y = Math.random() * 360;
+            series.update(y, true, true);
+        }, 1000);
 
-            if (newVal < 0 || newVal > 120) {
-                newVal = point.y - inc;
+    };
+
+    var yMax = 0;
+
+    function updateCurrent() {
+        var chart = $('#currentDraw').highcharts()
+        var series = chart.series[0];
+        setInterval(function () {
+            var x = (new Date()).getTime(), // current time
+                y = Math.random() * 120;
+            series.addPoint([x, y], true, true);
+
+            extremes = chart.yAxis[0].getExtremes();
+            if (extremes.dataMax > yMax) {
+                chart.yAxis[0].removePlotLine('plot-line-1');
+                yMax = extremes.dataMax;
+                chart.yAxis[0].addPlotLine({
+                    value: yMax,
+                    dashStyle: 'shortdash',
+                    color: 'red',
+                    width: 2,
+                    id: 'plot-line-1'
+                });
+                $('#label-1').remove();
+                chart.renderer.label(
+                    'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
+                    100,
+                    20)
+                    .attr({
+                        id: 'label-1',
+                        zIndex: 8
+                    })
+                    .add();
+            }
+            updateWindow();
+        }, 1000);
+    };
+
+    function updatePressure() {
+        setInterval(function () {
+            // Speed
+            var chart = $('#pressureChart').highcharts(),
+                point,
+                newVal,
+                inc;
+
+            if (chart) {
+                point = chart.series[0].points[0];
+                inc = Math.round((Math.random() - 0.5) * 100);
+                newVal = point.y + inc;
+
+                if (newVal < 0 || newVal > 120) {
+                    newVal = point.y - inc;
+                }
+
+                point.update(newVal);
             }
 
-            point.update(newVal);
-        }
-    }, 2000);
+        }, 2000);
+    };
+
+    function updateWindow() {
+        $(window).resize();
+    };
 });
