@@ -43,6 +43,7 @@ $(function () {
                 marginRight: 10,
                 events: {
                     load: function () {
+                        updateWindow();
                         updateCurrent();
                     }
                 }
@@ -356,36 +357,42 @@ $(function () {
     function updateCurrent() {
         var chart = $('#currentDraw').highcharts()
         var series = chart.series[0];
-        setInterval(function () {
-            var x = (new Date()).getTime(), // current time
-                y = Math.random() * 120;
-            series.addPoint([x, y], true, true);
-
-            extremes = chart.yAxis[0].getExtremes();
-            if (extremes.dataMax > yMax) {
-                chart.yAxis[0].removePlotLine('plot-line-1');
-                yMax = extremes.dataMax;
-                chart.yAxis[0].addPlotLine({
-                    value: yMax,
-                    dashStyle: 'shortdash',
-                    color: 'red',
-                    width: 2,
-                    id: 'plot-line-1'
-                });
-                $('#label-1').remove();
-                chart.renderer.label(
-                        'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
-                        100,
-                        20)
-                    .attr({
-                        id: 'label-1',
-                        zIndex: 8
-                    })
-                    .add();
-            }
-            updateWindow();
-        }, 1000);
+        var socket = io.connect('http://127.0.0.1:3000');
+        socket.on('current', function (time, data) {
+            console.log(parseFloat(data));
+            var series = chart.series[0];
+            series.addPoint([time, parseFloat(data)]);
+            drawMax();
+        });
+        drawMax();
     };
+
+    function drawMax() {
+        var chart = $('#currentDraw').highcharts()
+        var series = chart.series[0];
+        extremes = chart.yAxis[0].getExtremes();
+        if (extremes.dataMax > yMax) {
+            chart.yAxis[0].removePlotLine('plot-line-1');
+            yMax = extremes.dataMax;
+            chart.yAxis[0].addPlotLine({
+                value: yMax,
+                dashStyle: 'shortdash',
+                color: 'red',
+                width: 2,
+                id: 'plot-line-1'
+            });
+            $('#label-1').remove();
+            chart.renderer.label(
+                    'Max Current Draw: ' + Highcharts.numberFormat(yMax, 2),
+                    100,
+                    20)
+                .attr({
+                    id: 'label-1',
+                    zIndex: 8
+                })
+                .add();
+        }
+    }
 
     function updatePressure() {
         setInterval(function () {
@@ -411,6 +418,8 @@ $(function () {
     };
 
     function updateWindow() {
-        $(window).resize();
+        setInterval(function () {
+            $(window).resize();
+        }, 500);
     };
 });

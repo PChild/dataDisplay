@@ -19,9 +19,11 @@ serialPort.on("open", function () {
 
 serialPort.on('data', function (data) {
     console.log('data received: ' + data);
-    console.log('float data: ' + parseFloat(data));
     var date = new Date().getTime();
-    io.sockets.emit('packet', date, parseFloat(data));
+    jData = JSON.parse(data) 
+    console.log(jData);
+    io.sockets.emit('packet', date, jData.ultra);
+    io.sockets.emit('current', date, jData.current);
 });
 
 //Serve the app.
@@ -31,21 +33,4 @@ app.get('/', function (req, res) {
 
 app.use(express.static(__dirname + '/'));
 
-app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
