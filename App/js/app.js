@@ -2,39 +2,32 @@ $(function () {
 
     $(document).ready(function () {
 
-        $('#voltageLink').click(function () {
-            var gValue = $(this).attr('class');
-            if (gValue == 'btn-inverse') {
-                $(this).removeClass("btn-inverse");
-                $(this).addClass("btn-primary");
-            } else {
-                $(this).removeClass("btn-primary");
-                $(this).addClass("btn-inverse");
-            }
+        $("#voltageLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
         });
 
-        $('#pressureLink').click(function () {
-            $(this).toggleClass("btn-inverse");
+        $("#pressureLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
         });
 
-        $('#currentLink').click(function () {
-            $(this).toggleClass("btn-inverse");
+        $("#gyroLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
+        });
+        
+        $("#currentLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
+        });
+        
+        $("#encoderLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
         });
 
-        $('#gyroLink').click(function () {
-            $(this).toggleClass("btn-inverse");
+        $("#ultraLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
         });
 
-        $('#encoderLink').click(function () {
-            $(this).toggleClass("btn-inverse");
-        });
-
-        $('#ultraLink').click(function () {
-            $(this).toggleClass("btn-inverse");
-        });
-
-        $('#solenoidLink').click(function () {
-            $(this).toggleClass("btn-inverse");
+        $("#solenoidLink").on('click', function () {
+            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
         });
 
         Highcharts.setOptions({

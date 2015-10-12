@@ -18,6 +18,10 @@
     body {
         padding-top: 100px;
     }
+
+    i {
+    vertical-align: middle;
+    }
     
     .fixed {
         position: fixed;
@@ -49,19 +53,19 @@
             </div>
             <div class="navbar-collapse collapse navbar-responsive-collapse" id="nav">
                 <ul class="nav navbar-nav">
-                    <li><a href="#voltage" data-toggle="collapse" id="voltageLink" data-id="voltage">Voltage</a>
+                    <li clas="btn btn-primary btn-flat"><a href="#voltage" data-toggle="collapse" id="voltageLink" data-id="voltage"><i class="mdi-content-add"></i>Voltage</a>
                     </li>
-                    <li><a href="#pressure" data-toggle="collapse" id="pressureLink" data-id="pressure">Pressure</a>
+                    <li><a href="#pressure" data-toggle="collapse" id="pressureLink" data-id="pressure"><i class="mdi-content-add"></i>Pressure</a>
                     </li>
-                    <li><a href="#solenoids" data-toggle="collapse" id="solenoidLink" data-id="solenoids">Solenoids</a>
+                    <li><a href="#solenoids" data-toggle="collapse" id="solenoidLink" data-id="solenoids"><i class="mdi-content-add"></i>Solenoids</a>
                     </li>
-                    <li><a href="#current" data-toggle="collapse" id="currentLink" data-id="current">Amperage</a>
+                    <li><a href="#current" data-toggle="collapse" id="currentLink" data-id="current"><i class="mdi-content-add"></i>Amperage</a>
                     </li>
-                    <li><a href="#gyro" data-toggle="collapse" id="gyroLink" data-id="gyro">Gyroscope</a>
+                    <li><a href="#gyro" data-toggle="collapse" id="gyroLink" data-id="gyro"><i class="mdi-content-add"></i>Gyroscope</a>
                     </li>
-                    <li><a href="#encoder" data-toggle="collapse" id="encoderLink" data-id="encoder">Encoder</a>
+                    <li><a href="#encoder" data-toggle="collapse" id="encoderLink" data-id="encoder"><i class="mdi-content-add"></i>Encoder</a>
                     </li>
-                    <li><a href="#ultrasonic" data-toggle="collapse" id="ultraLink" data-id="ultrasonic">Ultrasonic</a>
+                    <li><a href="#ultrasonic" data-toggle="collapse" id="ultraLink" data-id="ultrasonic"><i class="mdi-content-add"></i>Ultrasonic</a>
                     </li>
                 </ul>
             </div>
@@ -93,25 +97,6 @@
                     <div id="collapseFour" class="panel-body accordion-body">
                         <div class="accordion-inner">
                             <div id="currentDraw" style="width:100%; height:400px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-group">
-                <div class="panel panel-primary shadow-z-4  collapse" id="encoder">
-                    <div class="accordion-heading panel-heading">
-                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseSix">Encoder Data</h3>
-                    </div>
-                    <div id="collapseSix" class="panel-body accordion-body">
-                        <div class="accordion-inner">
-                            Anim pariatur cliche reprehenderit
-                            <br>
-                            Anim pariatur cliche reprehenderit
-                            <br>
-                            Anim pariatur cliche reprehenderit
-                            <br>
-                            Anim pariatur cliche reprehenderit
-                            <br>
                         </div>
                     </div>
                 </div>
@@ -184,9 +169,25 @@
             </div>
         </div>
     </div>
-    <div id="main" class="col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-
-
+    <div id="main" class="col-md-12 col-lg-12">
+        <div class="accordion" id="accordion4">
+            <div class="accordion-group">
+                <div class="panel panel-primary shadow-z-4  collapse" id="encoder">
+                    <div class="accordion-heading panel-heading">
+                        <h3 class="accordion-toggle panel-title" data-toggle="collapse" href="#collapseSix">Encoder Data</h3>
+                    </div>
+                    <div id="collapseSix" class="panel-body accordion-body">
+                        <div class="accordion-inner">
+                            Anim pariatur cliche reprehenderit
+                            <br> Anim pariatur cliche reprehenderit
+                            <br> Anim pariatur cliche reprehenderit
+                            <br> Anim pariatur cliche reprehenderit
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Your site ends -->
     <script src="js/jquery-1.10.2.min.js"></script>
