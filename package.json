@@ -1,0 +1,28 @@
+{
+  "name": "datadisplay",
+  "version": "0.0.1",
+  "description": "Displays Robot Data",
+  "main": "dataServer.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team401/dataDisplay.git"
+  },
+  "keywords": [
+    "robotics",
+    "frc",
+    "data"
+  ],
+  "author": "pchild",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/team401/dataDisplay/issues"
+  },
+  "homepage": "https://github.com/team401/dataDisplay#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "^1.3.7"
+  }
+}
