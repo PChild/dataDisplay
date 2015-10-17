@@ -2,34 +2,6 @@ $(function () {
 
     $(document).ready(function () {
 
-        $("#voltageLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#pressureLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#gyroLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#currentLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#encoderLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#ultraLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
-        $("#solenoidLink").on('click', function () {
-            $(this).children('.mdi-content-add, .mdi-content-remove').toggleClass("mdi-content-add, mdi-content-remove");
-        });
-
         Highcharts.setOptions({
             global: {
                 useUTC: false
@@ -420,6 +392,6 @@ $(function () {
     function updateWindow() {
         setInterval(function () {
             $(window).resize();
-        }, 500);
+        }, 1000);
     };
 });

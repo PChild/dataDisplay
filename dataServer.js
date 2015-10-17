@@ -8,7 +8,7 @@ var SerialPort = require("serialport").SerialPort;
 http.listen(3000, "127.0.0.1");
 
 //Handle Serial Data
-var serialPort = new SerialPort("COM2", {
+var serialPort = new SerialPort("COM5", {
     baudrate: 115200,
 });
 
