@@ -1,3 +1,7 @@
+// some constants
+var ip = "127.0.0.1";
+var port = "3000";
+
 $(function () {
 
     $(document).ready(function () {
@@ -304,18 +308,29 @@ $(function () {
             }]
     });
 
+    // update ultrasonic graph
     function updateUltra() {
         var chart = $('#ultraChart').highcharts();
-        var socket = io.connect('http://127.0.0.1:3000');
-        socket.on('packet', function (time, data) {
+        var socket = io.connect('http://' + ip + ':' + port);
+        
+        socket.on('ultra', function (time, data) {
             console.log(parseFloat(data));
             var series = chart.series[0];
             series.addPoint([time, parseFloat(data)]);
         });
     };
 
+    // update gyro graph
     function updateAngle() {
         var chart = $('#gyroChart').highcharts();
+        var socket = io.connect('http://' + ip + ':' + port);
+        
+        socket.on('gyro', function (time, data) {
+            console.log(parseFloat(data));
+            var series = chart.get('heading');
+            series.update(data, true, true);
+        });
+        
         var series = chart.get('heading');
         setInterval(function () {
             y = Math.random() * 360;
@@ -327,9 +342,9 @@ $(function () {
     var yMax = 0;
 
     function updateCurrent() {
-        var chart = $('#currentDraw').highcharts()
-        var series = chart.series[0];
-        var socket = io.connect('http://127.0.0.1:3000');
+        var chart = $('#currentDraw').highcharts();
+        var socket = io.connect('http://' + ip + ':' + port);
+        
         socket.on('current', function (time, data) {
             console.log(parseFloat(data));
             var series = chart.series[0];
@@ -367,26 +382,44 @@ $(function () {
     }
 
     function updatePressure() {
-        setInterval(function () {
-            // Speed
+        var socket = io.connect('http://' + ip + ':' + port);
+        socket.on('pressure', function (time, data) {
+            console.log(parseFloat(data));
+            
             var chart = $('#pressureChart').highcharts(),
-                point,
-                newVal,
-                inc;
-
+            point,
+            newVal,
+            inc;
+            
             if (chart) {
                 point = chart.series[0].points[0];
                 inc = Math.round((Math.random() - 0.5) * 100);
                 newVal = point.y + inc;
-
                 if (newVal < 0 || newVal > 120) {
                     newVal = point.y - inc;
                 }
 
                 point.update(newVal);
             }
+        });
+        
+        setInterval(function () {
+            // Speed
+            var chart = $('#pressureChart').highcharts(),
+                point,
+                newVal,
+                inc;
+            if (chart) {
+                point = chart.series[0].points[0];
+                inc = Math.round((Math.random() - 0.5) * 100);
+                newVal = point.y + inc;
+                if (newVal < 0 || newVal > 120) {
+                    newVal = point.y - inc;
+                }
 
-        }, 2000);
+                point.update(newVal);
+            }
+        }, 1000);
     };
 
     function updateWindow() {
