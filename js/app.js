@@ -318,7 +318,7 @@ $(function () {
             var series = chart.series[0];
             series.addPoint([time, parseFloat(data)]);
         });
-    };
+    }
 
     // update gyro graph
     function updateAngle() {
@@ -336,19 +336,19 @@ $(function () {
             y = Math.random() * 360;
             series.update(y, true, true);
         }, 1000);
-    };
+    }
     
     // update solenoid buttons
     function updateSolenoid() {
         // what should we do here?
-        var button = $('#button'));
+        var button = $('#button');
         
         var socket = io.connect('http://' + ip + ':' + port);
         socket.on('solenoid', function (time, data) {
             console.log(parseFloat(data));
             // add code for updating buttons here
         });
-    };
+    }
     
     // update solenoid buttons
     function updateEncoder() {
