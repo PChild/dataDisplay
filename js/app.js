@@ -330,17 +330,40 @@ $(function () {
             var series = chart.get('heading');
             series.update(data, true, true);
         });
-        
+        // random data
         var series = chart.get('heading');
         setInterval(function () {
             y = Math.random() * 360;
             series.update(y, true, true);
         }, 1000);
-
+    };
+    
+    // update solenoid buttons
+    function updateSolenoid() {
+        // what should we do here?
+        var button = $('#button'));
+        
+        var socket = io.connect('http://' + ip + ':' + port);
+        socket.on('solenoid', function (time, data) {
+            console.log(parseFloat(data));
+            // add code for updating buttons here
+        });
+    };
+    
+    // update solenoid buttons
+    function updateEncoder() {
+        // create encoder chart somewhere
+        var chart = $('#encoder').highcharts();
+        var socket = io.connect('http://' + ip + ':' + port);
+        
+        socket.on('encoder', function (time, data) {
+            console.log(parseFloat(data));
+            // add code for updating encoder data here
+        });
     };
 
     var yMax = 0;
-
+    
     function updateCurrent() {
         var chart = $('#currentDraw').highcharts();
         var socket = io.connect('http://' + ip + ':' + port);
@@ -402,7 +425,7 @@ $(function () {
                 point.update(newVal);
             }
         });
-        
+        // random data
         setInterval(function () {
             // Speed
             var chart = $('#pressureChart').highcharts(),

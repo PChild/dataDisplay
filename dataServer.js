@@ -27,6 +27,8 @@ serialPort.on('data', function (data) {
     io.sockets.emit('current', date, jData.current);
     io.sockets.emit('gyro', date, jData.gyro);
     io.sockets.emit('pressure', date, jData.pressure);
+    io.sockets.emit('solenoid', date, jData.solenoid);
+    io.sockets.emit('encoder', date, jData.encoder);
 });
 
 // Serve the app.
